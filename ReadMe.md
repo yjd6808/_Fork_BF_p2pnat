@@ -49,14 +49,14 @@ http://young-writing.blogspot.com/
 <br>
 <br>
 
-## 0. Abstract <a href="#_1_" id="_0_"><font size="1">다음</font></a><font size="1"> | </font><a href="#li_0"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+## 0. Abstract <a href="#_1_" id="_0_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 네트워크 주소 변환(NAT)은 P2P통신에 있어서 잘 알려진 어려움들을 야기한다. 이는 관련 Peer들이 임의의 글로벌 IP주소로부터 연결되지 않을 수도 있기 때문이다. 몇몇 NAT 선회 기법들이 알려져 있으나 문서화가 미미하고 또한 그들의 확실성 혹은 상대적인 장점 등에 관한 데이터는 더욱 불충분하다. 이 문서는 이들 기법 중 가장 간단하나 가장 확실하고 실질적인 NAT 선회 기법인 "홀 펀칭" 을 분석한 것 이다. 홀 펀칭은 UDP 통신에 대해서는 어느 정도 이해되어 있지만, 우리는 이것이 어떻게 TCP 통신에서도 신뢰성 있게 이용되는지를 보일 것 이다. 다양하게 출시 되어있는 NAT들을 상대로 이 기법의 신뢰도 데이터를 모은 결과, 테스트된 NAT들 중 82%가 UDP에 대한 홀 펀칭을 지원하고 약 64%가 TCP에 대한 홀 펀칭을 지원했다. NAT 벤더들이 점점 Voice over IP와 온라인 게임 프로토콜과 같은 중요한 P2P 어플리케이션의 필요를 알아감에 따라 미래에는 홀 펀칭에 대한 지원이 증가하게 될 것이다.
 
 <br>
 <br>
 <br> 
 
-## 1. Introduction <a href="#_2_" id="_1_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_0_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+## 1. Introduction <a href="#_2_" id="_1_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_0_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
  
 <br>
 
@@ -89,13 +89,13 @@ http://young-writing.blogspot.com/
 <br>
 <br> 
 
-## 2. General Concepts <a href="#_3_" id="_2_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_1_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+## 2. General Concepts <a href="#_3_" id="_2_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_1_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 이 섹션에서는 이 문서에서 사용되는 기본적인 NAT 용어들을 소개한다. 그리고 UDP와 TCP에 같이 적용되는 일반적인 NAT 선회기법들을 개괄한다.
 
 <br>
 
-### <b>2.1 NAT Terminology</b> <a href="_2_2" id="_2_1"><font size="1">다음</font></a><font size="1"> | </font><a href="#_2_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>2.1 NAT Terminology</b> <a href="_2_2" id="_2_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_2_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 이 문서는 RFC 2663 [21]에 정의된 NAT 용어들과 분류법, 그리고 RFC 3489 [19]에 최근 추가로 정의된 용어들을 사용한다.
 
 특별히 중요한 개념은 세션이다. TCP 혹은 UDP를 위한 세션 종점은 IP 주소와 포트 번호로 이루어진 하나의 쌍이며 하나의 고유한 세션은 두 개의 세션 종점들로 이루어진다. 연관된 호스트들 중 한 호스트의 관점에서 보면, 세션은 4개의 요소(로컬 IP, 로컬 포트, 리모트 IP, 리모트 포트)들로 효과적으로 식별된다. 세션의 방향은 보통 세션을 처음 시작한 패킷의 흐름 방향이다. 즉, TCP의 경우 초기 SYN 패킷이고 UDP의 경우 첫 번째 유저 데이터 그램이다.
@@ -112,7 +112,7 @@ Outbound NAT는 두 개의 변형을 가진다. Basic NAT는 오직 IP 주소만
 <br>
 <br> 
 
-### <b>2.2 Relaying</b> <a href="#_2_3" id="_2_2"><font size="1">다음</font></a><font size="1"> | </font><a href="#_2_1"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>2.2 Relaying</b> <a href="#_2_3" id="_2_2"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_2_1"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
  
 
 NAT 를 넘나드는 가장 확실한 (그러나 가장 비효과적인) P2P 통신 방법은 중계(relaying)를 통해서 간단하게 표준 클라이언트/서버 모델처럼 만드는 것 이다. 두 호스트 A와 B가 잘 알려진 서버 S에 UDP 혹은 TCP 연결을 시작했다고 하자. 이 때 S의 IP 주소는 18.181.0.31, 포트 번호는 1234라 하자. 그림2에서 보이듯, 두 클라이언트는 서로 다른 private 네트워크 상에 존재하며 각각의 상응하는 NAT가 상대 클라이언트와 직접적으로 연결을 시작하는 것을 막고 있다. 직접 연결하는 대신에 두 클라이언트는 둘 사이의 메시지를 중계해주는 역할로 서버 S를 이용할 수 있다. 예를 들어, 클라이언트 B에게 메시지를 보내려면 클라이언트 A는 그냥 그 메시지를 서버 S로 이미 구성된 클라이언트/서버 연결을 통하여 보낸다. 그러면 서버 S는 이미 존재하는 B와의 클라이언트/서버 연결을 이용해 이를 클라이언트 B로 전달한다.
@@ -129,7 +129,7 @@ NAT 를 넘나드는 가장 확실한 (그러나 가장 비효과적인) P2P 통
 <br>
 <br> 
 
-### <b>2.3 Connection Reversal</b> <a href="#_3_" id="_2_3"><font size="1">다음</font></a><font size="1"> | </font><a href="#_2_2"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>2.3 Connection Reversal</b> <a href="#_3_" id="_2_3"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_2_2"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 <img src="./images/3.&#32;NAT&#32;Traversal&#32;by&#32;Connection&#32;Reversal.png" alt="drawing" style="width:500px;"/><br>
 그림 3: NAT Traversal by Connection Reversal
@@ -142,7 +142,7 @@ NAT 를 넘나드는 가장 확실한 (그러나 가장 비효과적인) P2P 통
 <br>
 <br> 
 
-## 3. UDP Hole Punching <a href="#_3_1" id="_3_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_2_3"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+## 3. UDP Hole Punching <a href="#_3_1" id="_3_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_2_3"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
  
 UDP 홀 펀칭은 두 클라이언트가 모두 NAT 뒤에 있다고 하더라도 잘 알려진 랑데뷰 서버를 통해서 직접적인 P2P UDP 세션을 구성하게 하는 기법이다. 이 기법은 RFC 3027의 5.1 섹션 [10]에 언급되었으며, 이 웹 [13]에서 더 완전히 문서화가 되었고 최근의 실험적인 인터넷 프로토콜들 [17,11]에서 사용되었다. 또한 온라인 게임을 위한 다양한 고유의 프로토콜들도 역시 UDP 홀 펀칭을 사용한다.
 
@@ -151,7 +151,7 @@ UDP 홀 펀칭은 두 클라이언트가 모두 NAT 뒤에 있다고 하더라�
 <br> 
 
 
-### <b>3.1 The Rendezvous Server</b> <a href="#_3_2" id="_3_1"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>3.1 The Rendezvous Server</b> <a href="#_3_2" id="_3_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 홀 펀칭은 이미 두 클라이언트 A와 B가 랑데뷰 서버 S와 활성화된 UDP 세션을 가지고 있다고 가정한다. 클라이언트가 S에 등록할 때, 서버는 해당 클라이언트를 위한 두 종점을 기록한다. 하나는 S와 이야기하기 위해 클라이언트가 믿는 자신의 종점(IP 주소, UDP 포트)이고 다른 하나는 서버가 보는 클라이언트의 종점(IP 주소, UDP 포트)이다. 우리는 첫 번째 종점을 클라이언트의 private 종점이라 하고 두 번째를 클라이언트의 public 종점이라 한다. 서버는 클라이언트의 private 종점을 클라이언트에서 보내지는 등록 메시지 본체의 한 필드에서 얻을 수 있을 것 이고, public 종점의 경우 등록 메시지의 IP와 UDP 헤더에 있는 소스 IP 주소와 소스 UDP 포트 필드들로부터 얻을 수 있을 것이다. 만약에 클라이언트가 NAT 뒤에 있지 않다면, private과 public 종점은 반드시 같을 것이다.
 
@@ -163,7 +163,7 @@ UDP 홀 펀칭은 두 클라이언트가 모두 NAT 뒤에 있다고 하더라�
 <br>
 <br> 
 
-### <b>3.2 Establishing Peer-to-Peer Sessions</b> <a href="#_3_3" id="_3_2"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_1"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>3.2 Establishing Peer-to-Peer Sessions</b> <a href="#_3_3" id="_3_2"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_1"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
  
 클라이언트 A가 클라이언트 B와 직접적으로 UDP 세션을 구성하고 싶다고 하자. 홀 펀칭은 다음과 같이 진행된다.
 
@@ -179,7 +179,7 @@ UDP 홀 펀칭은 두 클라이언트가 모두 NAT 뒤에 있다고 하더라�
 <br>
 <br> 
 
-### <b>3.3 Peers Behind a Common NAT</b> <a href="#_3_4" id="_3_3"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_2"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>3.3 Peers Behind a Common NAT</b> <a href="#_3_4" id="_3_3"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_2"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 
 첫 번째로 생각해 볼 상황은 두 클라이언트가 (아마도 모르게) 같은 NAT 뒤에 사는 경우이다. 따라서 그림 4에서 보여지듯, 이들은 같은 private IP 주소 세상에 자리하고 있게 된다. 클라이언트 A는 서버 S와 UDP 세션을 구성하였고 NAT는 자신만의 public 포트 번호 62000을 이에 할당 하였다. 클라이언트 B도 비슷하게 S와 UDP연결을 구성했으며 NAT는 이에 public 포트 번호 62005를 할당 하였다.
@@ -201,7 +201,7 @@ NAT가 hairpin 변환을 지원한다고 가정하면, private 종점들에게�
 <br>
 <br> 
 
-### <b>3.4 Peers Behind Different NATs</b> <a href="#_3_5" id="_3_4"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_3"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>3.4 Peers Behind Different NATs</b> <a href="#_3_5" id="_3_4"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_3"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 
 <br> 
@@ -236,7 +236,7 @@ A 와 B가 서로 다른 private 네트워크 상에 있기 때문에 그들 각
 <br>
 <br> 
 
-### <b>3.5 Peers Behind Multiple Levels of NAT</b> <a href="#_3_6" id="_3_5"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_4"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>3.5 Peers Behind Multiple Levels of NAT</b> <a href="#_3_6" id="_3_5"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_4"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 다중 NAT 장치들에 연관된 어떤 망들에서는, 두 클라이언트가 그 망의 특정한 지식이 없이는 "최적의" P2P연결을 구성을 할 수가 없다. 그림 6에 나와있는 마지막 상황을 생각해보자. 인터넷 서비스 제공 업체 (ISP)가 많은 고객들을 적은 public IP주소 만으로 다중 수신하기 위해 큰 기업형 NAT C를 설치했다고 해보자. 여기에 해당 인터넷 업체의 고객들이 집에서 그들의 홈 네트워크를 구성하기 위해 각자의 ISP 제공 IP주소에 NAT A와 B를 설치했다고 해보자. 서버 S와 NAT C만이 오직 전역적으로 전달 가능한 IP 주소를 가지고 있다. NAT A와 B의 public 주소는 사실 ISP 주소 세계 안에 있는 private 주소이다. 한편, 클라이언트 A와 B의 주소는 NAT A와 B의 세계에 있는 private 주소인 것이다. 전과 마찬가지로 각각의 클라이언트가 서버를 향해 밖으로 향하는 연결을 시작한다. 이는 NAT A와 B 각각 하나의 public/private 변환을 생성하며 또한 NAT C가 이 각각의 세션에 해당하는 public/private 세션 구성을 야기한다.
 
@@ -258,7 +258,7 @@ A 와 B가 서로 다른 private 네트워크 상에 있기 때문에 그들 각
 <br> 
 
 
-### <b>3.6 UDP Idle Timeouts</b> <a href="#_4_" id="_3_6"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_5"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>3.6 UDP Idle Timeouts</b> <a href="#_4_" id="_3_6"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_5"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
  
 UDP 통신 프로토콜은 NAT를 가로지르는 세션의 수명을 알 수 있는 어플리케이션 독립적이고 믿을 만한 방법을 NAT에게 제공하지 않는다. 이 때문에 대부분의 NAT들은 단순하게 UDP 변환들과 타이머를 연관시켜서, 만약 특정 시간 동안 어떤 트래픽도 없으면 구멍(hole)을 닫아 버린다. 불행히도 이 특정 시간에 대한 어떤 표준 값도 없다. 어떤 NAT들은 20초 정도로 짧은 시간을 가진다. 만약 어플리케이션이 홀 펀칭을 통해서 구성한 세션을 계속해서 살아있게 유지하려면, 반드시 주기적으로 "keep-alive" 패킷들을 보내서 NAT에 있는 해당 주소 변환의 상태가 사라지지 않게 해야 한다.
 
@@ -268,7 +268,7 @@ UDP 통신 프로토콜은 NAT를 가로지르는 세션의 수명을 알 수 �
 <br>
 <br> 
 
-## 4. TCP Hole Punching <a href="#_4_1" id="_4_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_3_6"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+## 4. TCP Hole Punching <a href="#_4_1" id="_4_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_3_6"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
  
 NAT들 뒤에 있는 호스트들 사이의 P2P TCP 연결을 구성하는 것은 UDP보다 약간 복잡하다. 하지만 프로토콜 레벨에서 보면 TCP 홀 펀칭은 UDP와 아주 흡사하다. UDP 홀 펀칭 만큼 널리 알려지지 않았기에, 적은 NAT들만이 TCP 홀 펀칭을 지원한다. 하지만 관련된 NAT들이 이를 지원하기만 한다면, TCP 홀 펀칭 역시 UDP 홀 펀칭 만큼 빠르고 믿을만하다. 사실 잘 동작하는 NAT들 사이를 가로지르는 P2P TCP 연결이 UDP 통신 보다 튼실하다. 왜냐하면 UDP와 달리 TCP 프로토콜의 상태 기계가 NAT들에게 특정 TCP 세션의 수명을 정확하게 결정할 수 있는 표준 방법을 제공하기 때문이다.
 
@@ -277,7 +277,7 @@ NAT들 뒤에 있는 호스트들 사이의 P2P TCP 연결을 구성하는 것�
 <br> 
 
 
-### <b>4.1 Sockets and TCP Port Reuse</b> <a href="#_4_2" id="_4_1"><font size="1">다음</font></a><font size="1"> | </font><a href="#_4_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>4.1 Sockets and TCP Port Reuse</b> <a href="#_4_2" id="_4_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_4_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 
 TCP 홀 펀칭을 구현하는데 가장 걸림돌이 되는 것은 프로토콜 문제가 아니라 API 문제이다. 표준 버클리 소켓 API가 클라이언트/서버 패러다임을 기반으로 디자인되었기 때문에, 이 API는 한 소켓이 connect()로 밖으로 향하는 연결을 시작하거나 혹은 listen()과 accept()을 통해서 안으로 향하는 연결들을 들을 수 있다. 하지만 둘 다는 안 된다. 거기다 더해, TCP 소켓들은 대개 로컬 호스트 상에서 TCP 포트와 일대일 관계를 가진다. 어플리케이션이 한 소켓에 특정 로컬 TCP 포트를 할당하고 나면, 두 번째 소켓을 같은 포트에 할당하려는 시도는 실패한다.
@@ -290,7 +290,7 @@ TCP 홀 펀칭을 구현하는데 가장 걸림돌이 되는 것은 프로토콜
 <br>
 <br> 
 
-### <b>4.2 Opening Peer-to-Peer TCP Streams</b> <a href="#_4_3" id="_4_2"><font size="1">다음</font></a><font size="1"> | </font><a href="#_4_1"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>4.2 Opening Peer-to-Peer TCP Streams</b> <a href="#_4_3" id="_4_2"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_4_1"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
  
 클라이언트 A가 클라이언트 B와 TCP 연결을 설정하기를 원한다고 해보자. 우리는 이미 두 클라이언트 A와 B가 잘 알려진 랑데뷰 서버 S와 연결되어 있다고 가정한다. UDP의 경우와 마찬가지로, 서버는 각각 클라이언트의 public 종점과 private 종점을 기록하고 있다. 프로토콜 레벨에서 보면 TCP 홀 펀칭은 UDP의 경우와 거의 동일하게 동작한다.
@@ -327,7 +327,7 @@ TCP 홀 펀칭을 구현하는데 가장 걸림돌이 되는 것은 프로토콜
 <br> 
 
 
-### <b>4.3 Behavior Observed by the Application</b> <a href="#_4_4" id="_4_3"><font size="1">다음</font></a><font size="1"> | </font><a href="#_4_2"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+### <b>4.3 Behavior Observed by the Application</b> <a href="#_4_4" id="_4_3"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_4_2"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 
 TCP 홀 펀칭 와중에 클라이언트 어플리케이션이 보게 되는 그들의 소켓에 벌어질 일들은 타이밍과 더불어 해당 TCP구현에 달려있다. B의 public 종점으로 향하는 A의 첫 번째 outbound SYN 패킷이 NAT B에 의해 버려졌지만, 그 뒤에 A의 public 종점으로 향하는 B의 첫 번째 SYN 패킷이 A의 TCP가 SYN을 다시 보내기 전에 A에 도착했다고 해보자. 운영 체제에 따라서 두 가지 중 한 가지의 경우가 일어난다.
@@ -358,7 +358,7 @@ B를 향한 A의 이전 outbound connect()가 사용했던 source와 destination
 <br> 
 
 
-### <b>4.4 Simultaneous TCP Open</b> <a href="#_4_5" id="_4_4"><font size="1">다음</font></a><font size="1"> | </font><a href="#_4_3"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>4.4 Simultaneous TCP Open</b> <a href="#_4_5" id="_4_4"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_4_3"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 
 홀 펀칭 과정 중, 다수의 연결 시도들의 타이밍이 맞아 떨어져서, 두 클라이언트 모두의 밖으로 향하는 최초의 SYN 패킷들이 상대방의 NAT에 닿기 전에 자신의 해당 로컬 NAT에 당도하였다고 하자. 이 경우 각각의 NAT는 밖으로 향하는 TCP 세션들을 열게 된다. 이런 "운 좋은" 경우에는, 두 NAT들은 어떤 초기 (역주: 안으로 향하는) SYN 패킷도 거절하지 않게 되고 이 초기 SYN 패킷들은 NAT들 사이의 선상을 가로지른다. 이 경우에, 클라이언트들은 "simultaneous TCP open"이 라는 현상을 보게 된다. 이는 각각의 peer들이 모두 SYN-ACK를 기다리는 와중에 "생짜(raw)" SYN을 받은 것이다. 각 peer들의 TCP들은 SYN-ACK로 회신을 하며, 이때 SYN은 이전에 보낸 것과 같은 것이고 ACK 부분은 다른 peer로 부터 받은 SYN에 대한 수신 확인이다.
@@ -376,7 +376,7 @@ UDP를 위한 섹션 3에서 토의된 여러 다른 네트워크 구성에 따�
 <br>
 <br> 
 
-### <b>4.5 Sequential Hole Punching</b> <a href="#_5_" id="_4_5"><font size="1">다음</font></a><font size="1"> | </font><a href="#_4_4"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>4.5 Sequential Hole Punching</b> <a href="#_5_" id="_4_5"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_4_4"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 
 위의 TCP 홀 펀칭 방식의 변형으로 NatTrav 라이브러리 [4] 가 구현한 것은, 클라이언트들이 동시가 아닌 서로 순차적으로 접속을 시도한다. 예를 들어, (1)A가 S를 통해서 B에게 연결하고 싶다고 말하지만 A의 로컬 포트로 동시에 연결을 기다리진(listening) 않는다. (2)B가 A를 향해 connect()를 시도하고 이는 B의 NAT에 구멍을 연다. 하지만 이후 타임아웃이나 A의 NAT, 혹은 A 자신으로부터의 RST로 인해 호출은 실패한다. (3)B는 S의 연결을 닫고 자신의 로컬 포트에 listen()을 한다. (4)S는 다음으로 A와의 연결을 끊고, 이는 A에게 B로 직접 connect()를 시도하라는 신호가 된다.
@@ -391,7 +391,7 @@ UDP를 위한 섹션 3에서 토의된 여러 다른 네트워크 구성에 따�
 <br> 
 
 
-## 5. Properties of P2P-Friendly NATs <a href="#_5_1" id="_5_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_4_5"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+## 5. Properties of P2P-Friendly NATs <a href="#_5_1" id="_5_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_4_5"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 이 섹션은 NAT가 위에서 설명된 홀 펀칭 기법이 제대로 작동하기 위해서 반드시 가져야 하는 주요 속성들에 대해 설명할 것이다. 모든 NAT 구현들이 이 속성들을 만족시키진 않지만, 많은 NAT 구현들이 그러하다. 또한 NAT 벤더들이 voice over IP와 온라인 게임과 같이 P2P 프로토콜의 요구를 알아감에 따라 NAT들이 점차적으로 더 "P2P와 사이 좋게" 되고 있다.
 
@@ -403,7 +403,7 @@ UDP를 위한 섹션 3에서 토의된 여러 다른 네트워크 구성에 따�
 <br>
 <br> 
 
-### <b>5.1 Consistent Endpoint Translation</b> <a href="#_5_2" id="_5_1"><font size="1">다음</font></a><font size="1"> | </font><a href="#_5_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>5.1 Consistent Endpoint Translation</b> <a href="#_5_2" id="_5_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_5_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 
 여기서 설명된 홀 펀칭 기법은 오직 NAT가 private 네트워크 상에 주어진 TCP혹은 UDP의 소스의 종점을 NAT에 의해 조정되는 "하나"의 public 주소로 일관되게 연관을 시킬 경우에만 자동적으로 작동한다. 이렇게 작동하는 NAT는 cone NAT라고 RFC 3489 [19]와 다른 곳에서 일컬어진다. 왜냐하면 NAT가 하나의 private 종점에 기반하는 모든 세션을 NAT상의 같은 public 종점으로 "모으기" 때문이다. (역주: cone = 깔때기)
@@ -422,7 +422,7 @@ UDP를 위한 섹션 3에서 토의된 여러 다른 네트워크 구성에 따�
 <br>
 <br> 
 
-### <b>5.2 Handling Unsolicited TCP Connections</b> <a href="#_5_3" id="_5_2"><font size="1">다음</font></a><font size="1"> | </font><a href="#_5_1"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>5.2 Handling Unsolicited TCP Connections</b> <a href="#_5_3" id="_5_2"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_5_1"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 NAT가 자신의 public 쪽에서 SYN 패킷을 받았는데 이것이 요청되지 않은 내부로 향하는 연결 시도라면, 그냥 조용히 이 SYN packet을 버리는 것이 중요하다. 어떤 NAT들은 대신에 TCP RST (역주: connection reset) 혹은 ICMP 에러 보고까지 되돌려 보내면서 이런 안으로 향하는 연결을 적극적으로 거부한다. 이는 TCP 홀 펀칭을 방해하게 된다. 섹션 4.2에 있는 홀 펀칭 과정의 네 번째 스텝에 서술된 바와 같이, 이런 방식은 어플리케이션들이 밖으로 향하는 연결을 다시 시도하는 한 아주 치명적이지는 않다. 하지만 일시적인 에러들이 발생하는 것이 홀 펀칭 과정을 길게 만들 수 있다.
 
@@ -430,7 +430,7 @@ NAT가 자신의 public 쪽에서 SYN 패킷을 받았는데 이것이 요청되
 <br>
 <br> 
 
-### <b>5.3 Leaving Payloads Alone</b> <a href="#_5_4" id="_5_3"><font size="1">다음</font></a><font size="1"> | </font><a href="#_5_2"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>5.3 Leaving Payloads Alone</b> <a href="#_5_4" id="_5_3"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_5_2"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 적은 수의 현존하는 NAT들은 IP주소처럼 보이는 4byte 값을 패킷으로 부터 "맹목적으로" 스캔하고 이를 패킷 헤더에 있는 IP 주소마냥 해석하는 것으로 알려져 있다. 사용중인 어플리케이션 프로토콜의 관해서 아무것도 알지 못한 체 말이다. 이런 나쁜 방식은 다행히 일반적이지 않고 어플리케이션들이 자신이 보내는 메시지들에 있는 IP 주소들을 알아보지 못하게 만드는 것으로 방어가 가능하다. 예를 들어, 원하는 IP 주소의 2의 보수를 보내는 식이다.
 
@@ -439,7 +439,7 @@ NAT가 자신의 public 쪽에서 SYN 패킷을 받았는데 이것이 요청되
 <br>
 <br> 
 
-### <b>5.4 Hairpin Translation</b> <a href="#_6_" id="_5_4"><font size="1">다음</font></a><font size="1"> | </font><a href="#_5_3"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>5.4 Hairpin Translation</b> <a href="#_6_" id="_5_4"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_5_3"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 섹션 3.5에서 설명했듯이, 어떤 다중 레벨 NAT의 경우에 TCP 혹은 UDP 홀 펀칭이 작동하기 위해서는 hairpin 변환 지원을 요구한다. 예를 들어, 그림 6에서 나온 시나리오는 NAT C가 hairpin 변환을 지원하느냐에 달려있다. 불행히도 현재 NAT들 사이에서는 hairpin 변환이 드물다. 그러나 다행히도 이것을 요구하는 네트워크 시나리오 역시 드물다. 하지만 IPv4 주소 공간 고갈이 계속됨에 따라 다중 레벨 NAT가 점점 일반적이 되고 있다. 따라서 미래의 NAT 구현에서 hairpin 변환 지원은 중요하다.
 
@@ -447,7 +447,7 @@ NAT가 자신의 public 쪽에서 SYN 패킷을 받았는데 이것이 요청되
 <br>
 <br> 
 
- ## 6. Evaluation of Existing NATs <a href="#_6_1" id="_6_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_5_4"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a>
+ ## 6. Evaluation of Existing NATs <a href="#_6_1" id="_6_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_5_4"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 이 문서에서 설명된 TCP 와 UDP 홀 펀칭 기법의 현존하는 다양한 NAT들에 대한 튼실함을 평가하기 위해, 우리는 NAT Check [16]라고 불리는 테스트 프로그램을 개발하고 배포하였다. 또한 인터넷 사용자들에게 그들의 NAT에 관한 데이터를 요청하였다.
 
@@ -463,7 +463,7 @@ NAT Check는 NAT 행동 개개의 모든 면을 테스트하려고 하지 않는
 <br>
 <br> 
 
-### <b>6.1 Test Method</b> <a href="#_6_1_1" id="_6_1"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>6.1 Test Method</b> <a href="#_6_1_1" id="_6_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 NAT Check는 테스트 하려는 NAT 뒤에 있는 컴퓨터에서 실행되는 클라이언트 프로그램과 각각 다른 전역 IP 주소를 가진 세 개의 잘 알려진 서버들로 구성되어있다. 클라이언트는 TCP와 UDP 홀 펀칭에 관련된 NAT 작동 방식을 체크하기 위해 세 개의 서버와 협동한다. 클라이언트 프로그램은 작고 상대적으로 이식성이 있다. 현재 Windows, Linux, BSD, 그리고 Mac OS X 에서 실행된다. 잘 알려진 서버들을 실행하는 컴퓨터들은 모두 FreeBSD를 사용한다.
 
@@ -471,7 +471,7 @@ NAT Check는 테스트 하려는 NAT 뒤에 있는 컴퓨터에서 실행되는 
 <br>
 <br> 
 
- ### <b>6.1.1 UDP Test</b> <a href="#_6_1_2" id="_6_1_1"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_1"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+ ### <b>6.1.1 UDP Test</b> <a href="#_6_1_2" id="_6_1_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_1"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
  
 UDP를 위한 NAT의 행동 방식을 테스트하기 위해서, 클라이언트는 소켓을 하나 열고 지역 UDP 포트를 할당한다. 그리고 그림 8에서 나온 바와 같이 연속해서 ping과 같은 요청을 서버 1과 서버 2에 보낸다. 이 서버들은 각각 클라이언트의 ping에 대한 클라이언트의 public UDP 종점(서버에서 보는 클라이언트의 IP 주소와 UDP 포트 번호)을 담은 답변을 회신한다. 만약 두 서버가 모두 같은 public 종점을 클라이언트에게 보고하면, NAT Check는 NAT가 클라이언트의 private 종점에 대한 정체성을 적절하게 보존하고 있다고 여긴다. 믿을 만한 UDP 홀 펀칭을 위한 이 주요 선행조건이 만족된다고 말이다.
 
@@ -490,9 +490,11 @@ UDP를 위한 NAT의 행동 방식을 테스트하기 위해서, 클라이언트
 
 NAT가 hairpin 변환을 지원하는지 테스트하기 위해서, 클라이언트는 간단히 두 번째 UDP 소켓을 다른 포트번호로 열고 이를 사용해서 클라이언트의 첫 번째 UDP 소켓의 public 종점 (서버 2가 알려준) 으로 향해 메시지를 보낸다. 만약 이 메시지가 클라이언트의 첫 번째 private 종점에 도착하면 이는 NAT가 hairpin 변환을 지원한다는 것이다.
 
- 
+<br> 
+<br> 
+<br> 
 
-### <b>6.1.2 TCP Test</b> <a href="#_6_2" id="_6_1_2"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_1_1"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>6.1.2 TCP Test</b> <a href="#_6_2" id="_6_1_2"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_1_1"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
  
 
 TCP 테스트도 UDP와 비슷한 형식을 취한다. 클라이언트는 하나의 로컬 TCP 포트를 이용하여 서버 1 과 2에게 밖으로 향하는 세션을 시작한다. 그리고 서버 1과 2에서 보고되는 public 종점들이 같은지를 확인한다. 이는 믿을 만한 TCP 홀 펀칭을 위한 첫 번째 선행 조건이다.
@@ -514,7 +516,7 @@ TCP 경우의 hairpin 변환을 테스트하기 위해, UDP의 경우와 동일�
 <br>
 <br> 
 
-### <b>6.2 Test Results</b> <a href="#_6_3" id="_6_2"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_1_2"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>6.2 Test Results</b> <a href="#_6_3" id="_6_2"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_1_2"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
  
 
 우리가 모은 NAT Check 데이터는 68개의 다른 벤더들로부터 나온 다양한 NAT들을 포함하는 380개의 리포트로 구성되어있다. 또한 NAT 기능들은 여러 다른 버전의 8개의 인기 있는 운영체제에 구현되어있다. 오직 이중에 335개의 리포트만 UDP hairpin 변환에 대한 결과를 포함하고 있고 286개만이 TCP를 위한 결과를 가지고 있다. 이는 우리가 이미 결과들을 모으기 시작한 이후에 이 기능을 NAT Check의 후기 버전에서 구현했기 때문이다. 데이터 결과는 NAT 벤더 별로 테이블 1에 정리되어있다. 이 테이블은 최소 5개 이상의 데이터가 유효한 개개의 벤더들만 보여준다. 이 결과에서 주어진 하나의 벤더에 대한 다양성은 여러 가지 요소들로부터 설명될 수 있다. 예를 들어, 같은 벤더의 다른 NAT 디바이스 또는 다른 상용 제품 라인, 같은 NAT 구현에 다른 소프트웨어 혹은 다른 펌웨어 버전, 다른 구성, 그리고 혹은 가끔 일어나는 NAT Check의 테스트, 보고 에러 등이 이런 요소들이다.
@@ -546,7 +548,7 @@ TCP에 해당하는 전체 286개의 데이터 중에 184개 (64%)가 TCP 홀 �
 <br>
 <br> 
 
-### <b>6.3 Testing Limitations</b> <a href="#_6_4" id="_6_3"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_2"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>6.3 Testing Limitations</b> <a href="#_6_4" id="_6_3"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_2"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 
  
@@ -566,7 +568,7 @@ NAT Check의 현재 테스트 프로토콜은 어떤 경우에 결과를 잘못 
 <br>
 <br> 
 
-### <b>6.4 Corroboration of Results</b> <a href="#_7_" id="_6_4"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_3"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+### <b>6.4 Corroboration of Results</b> <a href="#_7_" id="_6_4"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_3"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
  
 
@@ -578,7 +580,7 @@ NAT Check의 현재 테스트 프로토콜은 어떤 경우에 결과를 잘못 
 <br>
 <br> 
 
-## 7. Related Work <a href="#_8_" id="_7_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_6_4"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+## 7. Related Work <a href="#_8_" id="_7_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_6_4"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 UDP 홀 펀칭은 최초로 Dan Kegel [13] 에 의해서 조사되고 공개적으로 문서화되었으며 이는 지금까지 P2P 어플리케이션 커뮤니티에 널리 알려져 있다. UDP 홀 펀칭의 중요한 면들 역시 여러 실험적인 프로토콜들의 명세서에서 간접적으로 문서화가 되어왔다. 이런 프로토콜들로는 STUN[19], ICE [17] 그리고 Teredo [11] 등이 있다. 하지만 우리는 홀 펀칭을 완전히 분석하거나 다중 레벨 NAT (섹션 3.5)에서의 hairpin 변환 문제 등을 지적하는 공개된 작업 물은 지금까지 없는 것으로 안다.
 
@@ -599,7 +601,7 @@ HIP [15] 과 FARA [2] 같은 최근의 제안들은 호스트의 주체성(ident
 <br>
 <br> 
 
-## 8. Conclusion <a href="#_9_" id="_8_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_7_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+## 8. Conclusion <a href="#_9_" id="_8_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_7_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
  
 
 홀 펀칭은 NAT가 존재할 때 P2P 연결을 구성하는 다목적의 기술이다. 연관된 NAT가 요구되는 몇 개의 방식만 따라준다면, 홀 펀칭은 TCP와 UDP 모두의 경우에 일관적이고 튼실하게 작동한다. 그리고 어떤 특별한 권한이나 특수한 네트워크 망과 상관없이 일반적인 어플리케이션들에 의해 구현될 수 있다. 홀 펀칭은 완전한 투명성을 유지하는데 이는 가장 중요한 NAT의 특징과 장점들 중에 하나다. 또한 다중 레벨의 NAT에서도 작동한다. (비록 몇몇 문제 상황이 아직 널리 구현되어있지 않은 NAT의 특성인 hairpin 변환을 요구하지만.)
@@ -610,7 +612,7 @@ HIP [15] 과 FARA [2] 같은 최근의 제안들은 호스트의 주체성(ident
 <br>
 <br> 
 
-## 9. Acknowledgments <a href="#_1_" id="_9_"><font size="1">다음</font></a><font size="1"> | </font><a href="#_8_"><font size="1">이전</font></a><font size="1"> | </font><a href="#li_0"><font size="1">목차</font></a> 
+## 9. Acknowledgments <a href="#_1_" id="_9_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_8_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a> 
 
 우리 작가들은 섹션 6에 나오는 결과들을 모으는데 중요한 지원을 해준 Dave Andersen에게 감사를 전한다. 또한 Henrik Nordstrom, Christian Huitema, Justin Uberti, Mema Roussopoulos 그리고 익명의 USENIX 리뷰어들에게도 이 문서의 초본에 대해 값진 피드백을 준 것에 감사한다. 끝으로 NAT Check를 사용해서 우리에게 결과를 보내준 많은 지원자들 모두에게 감사한다.
 
