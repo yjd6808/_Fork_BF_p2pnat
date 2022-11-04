@@ -89,13 +89,13 @@ http://young-writing.blogspot.com/
 <br>
 <br> 
 
-## 2. General Concepts <a href="#_3_" id="_2_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_1_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
+## 2. General Concepts <a href="#_2_1" id="_2_"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_1_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 
 이 섹션에서는 이 문서에서 사용되는 기본적인 NAT 용어들을 소개한다. 그리고 UDP와 TCP에 같이 적용되는 일반적인 NAT 선회기법들을 개괄한다.
 
 <br>
 
-### <b>2.1 NAT Terminology</b> <a href="_2_2" id="_2_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_2_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
+### <b>2.1 NAT Terminology</b> <a href="#_2_2" id="_2_1"><sub size="1">다음</sub></a><sub size="1"> | </sub><a href="#_2_"><sub size="1">이전</sub></a><sub size="1"> | </sub><a href="#li_0"><sub size="1">목차</sub></a>
 이 문서는 RFC 2663 [21]에 정의된 NAT 용어들과 분류법, 그리고 RFC 3489 [19]에 최근 추가로 정의된 용어들을 사용한다.
 
 특별히 중요한 개념은 세션이다. TCP 혹은 UDP를 위한 세션 종점은 IP 주소와 포트 번호로 이루어진 하나의 쌍이며 하나의 고유한 세션은 두 개의 세션 종점들로 이루어진다. 연관된 호스트들 중 한 호스트의 관점에서 보면, 세션은 4개의 요소(로컬 IP, 로컬 포트, 리모트 IP, 리모트 포트)들로 효과적으로 식별된다. 세션의 방향은 보통 세션을 처음 시작한 패킷의 흐름 방향이다. 즉, TCP의 경우 초기 SYN 패킷이고 UDP의 경우 첫 번째 유저 데이터 그램이다.
